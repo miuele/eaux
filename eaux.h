@@ -6,7 +6,12 @@ namespace eaux {
 namespace numbers {
 
 template <class T>
-T pi_v = 3.141592653589793238462643383279502884L;
+struct pi {
+	static constexpr T value = 3.141592653589793238462643383279502884L;
+};
+
+template <class T>
+constexpr T pi<T>::value;
 
 }
 
