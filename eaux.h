@@ -39,6 +39,29 @@ void destroy_at(T *p) {
 	p->~T();
 }
 
+template <class T>
+struct object_cell {
+	template <class ...Args>
+	T *construct(Args &&...args) {
+		object_ = eaux::construct_at(reinterpret_cast<T *>(storage_), std::forward<Args>(args)...);
+		return object_;
+	}
+	void destruct() {
+		eaux::destroy_at(object_);
+		object_ = nullptr;
+	}
+	T *object() {
+		return object_;
+	}
+	const T *object() const {
+		return object_;
+	}
+
+private:
+	T *object_;
+	alignas(T) unsigned char storage_[sizeof(T)];
+};
+
 }
 
 #endif
