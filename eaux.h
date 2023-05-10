@@ -41,18 +41,31 @@ void destroy_at(T *p) {
 
 template <class T>
 struct object_cell {
+	object_cell()
+		: object_(nullptr)
+	{}
+
+	~object_cell() {
+		if (object_) {
+			destruct();
+		}
+	}
+
 	template <class ...Args>
 	T *construct(Args &&...args) {
 		object_ = eaux::construct_at(reinterpret_cast<T *>(storage_), std::forward<Args>(args)...);
 		return object_;
 	}
+
 	void destruct() {
 		eaux::destroy_at(object_);
 		object_ = nullptr;
 	}
+
 	T *object() {
 		return object_;
 	}
+
 	const T *object() const {
 		return object_;
 	}
