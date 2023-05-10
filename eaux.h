@@ -41,7 +41,7 @@ void destroy_at(T *p) {
 
 template <class T>
 struct object_cell {
-	object_cell()
+	constexpr object_cell()
 		: object_(nullptr)
 	{}
 
@@ -62,11 +62,11 @@ struct object_cell {
 		object_ = nullptr;
 	}
 
-	T *object() {
+	constexpr T *object() {
 		return object_;
 	}
 
-	const T *object() const {
+	constexpr const T *object() const {
 		return object_;
 	}
 
