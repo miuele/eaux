@@ -75,6 +75,20 @@ private:
 	alignas(T) unsigned char storage_[sizeof(T)];
 };
 
+template <class F, class T>
+auto visit_cell(eaux::object_cell<T> &cell, F &&f) {
+	if (cell.object()) {
+		std::forward<F>(f)(*cell.object());
+	}
+}
+
+template <class F, class T>
+auto visit_cell(const eaux::object_cell<T> &cell, F &&f) {
+	if (cell.object()) {
+		std::forward<F>(f)(*cell.object());
+	}
+}
+
 }
 
 #endif
