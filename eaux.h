@@ -48,6 +48,8 @@ void destroy_at(T *p) {
 
 template <class T>
 struct object_cell {
+	using object_type = T;
+
 	constexpr object_cell()
 		: object_(nullptr)
 	{}
