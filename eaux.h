@@ -24,9 +24,16 @@ constexpr const T &clamp(const T &v, const T &lo, const T &hi) {
     return v < lo ? lo : hi < v ? hi : v; 
 }
 
-template <class Rep, class Period>
-constexpr float duration_to_float(const std::chrono::duration<Rep, Period> &d) {
-    return std::chrono::duration<float>(d).count();
+template <class T, class Rep, class Period>
+constexpr T to_seconds(const std::chrono::duration<Rep, Period> &d) {
+	return static_cast<std::chrono::duration<T>>(d).count();
+}
+
+template <class Duration, class T, class Rep, class Period>
+constexpr auto per_duration(const T &value, const std::chrono::duration<Rep, Period> &delta_t)
+	-> std::enable_if_t<std::is_floating_point<T>::value, T>
+{
+	return value / static_cast<std::chrono::duration<T, typename Duration::period>>(delta_t).count();
 }
 
 template <class T, class ...Args>
