@@ -56,6 +56,7 @@ struct object_cell {
 
 	constexpr object_cell()
 		: object_(nullptr)
+		, storage_{}	// must be initialized for constexpr constructor
 	{}
 
 	template <class ...Args>
