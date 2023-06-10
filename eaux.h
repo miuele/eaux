@@ -81,11 +81,11 @@ struct object_cell {
 		object_ = nullptr;
 	}
 
-	constexpr T *object() {
+	T *object() {
 		return object_;
 	}
 
-	constexpr const T *object() const {
+	const T *object() const {
 		return object_;
 	}
 
