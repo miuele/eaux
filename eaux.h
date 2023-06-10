@@ -46,6 +46,10 @@ void destroy_at(T *p) {
 	p->~T();
 }
 
+struct construct_on_init_t {
+	explicit construct_on_init_t() = default;
+};
+
 template <class T>
 struct object_cell {
 	using object_type = T;
@@ -53,6 +57,11 @@ struct object_cell {
 	constexpr object_cell()
 		: object_(nullptr)
 	{}
+
+	template <class ...Args>
+	object_cell(construct_on_init_t, Args &&...args) {
+		construct(std::forward<Args>(args)...);
+	}
 
 	~object_cell() {
 		if (object_) {
